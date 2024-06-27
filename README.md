@@ -8,8 +8,8 @@ methodologies.
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
@@ -54,14 +54,14 @@ Before you begin, ensure you have the following software installed:
 
 4. Activate the virtual environment:
 
-    - On Windows:
-      ```bash
-      venv\Scripts\activate
-      ```
-    - On macOS and Linux:
-      ```bash
-      source venv/bin/activate
-      ```
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - On macOS and Linux:
+     ```bash
+     source venv/bin/activate
+     ```
 
 5. Install the required dependencies:
 
@@ -112,6 +112,10 @@ vuln-data-science/
 
 We welcome contributions to this project! If you have an idea or find an issue, please open a GitHub issue or submit a
 pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
