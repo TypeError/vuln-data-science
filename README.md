@@ -105,19 +105,22 @@ This script requires the `jupytext` package, which will be installed with the ot
 ```
 vuln-data-science/
 ├── data/
-│   ├── project/
-│   │   ├── raw/
-│   │   ├── processed/
+│   ├── raw/
+│   ├── processed/
 ├── notebooks/
-│   ├── project/
+│   ├── patch_tuesday/
 │   │   ├── 01_data_collection.ipynb
 │   │   ├── 02_data_cleaning.ipynb
-│   │   ├── 03_analysis.ipynb
+│   │   ├── 03_weighted_vulnerability_scoring.ipynb
+│   │   ├── 04_analysis.ipynb
+│   │   ├── 05_summary.ipynb
 ├── markdown/
-│   ├── project/
-│   │   ├── 01_data_collection.md
+│   ├── patch_tuesday/
+│   │   ├── 01_data_collection.ms
 │   │   ├── 02_data_cleaning.md
-│   │   ├── 03_analysis.md
+│   │   ├── 03_weighted_vulnerability_scoring.md
+│   │   ├── 04_analysis.md
+│   │   ├── 05_summary.md
 ├── scripts/
 │   ├── nb_to_md.py
 ├── README.md

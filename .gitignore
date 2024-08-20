@@ -165,5 +165,5 @@ cython_debug/
 .DS_Store
 
 # Ignore all files in the raw and processed data directories except .gitkeep
-data/*/*/*
-!data/*/*/.gitkeep
+data/*/*
+!data/*/.gitkeep
