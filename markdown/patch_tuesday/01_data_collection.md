@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.2
+      jupytext_version: 1.16.3
   kernelspec:
     display_name: Python 3
     language: python
@@ -16,6 +16,7 @@ jupyter:
 
 ```python
 import json
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -35,24 +36,35 @@ The process is outlined in the following steps:
 
 4. **Parse CVE Identifiers**: We extract CVE identifiers from the CVRF document to list all the vulnerabilities covered in the latest update.
 
-5. **Store JSON Data**: Finally, the entire CVRF JSON data is saved to a local file. This file is stored in the `../../data/patch_tuesday/raw` directory, allowing us to reference this data later for analysis without needing to re-fetch it from the API.
+5. **Store JSON Data**: Finally, the entire CVRF JSON data is saved to a local file. This file is stored in the `../../data/raw` directory, allowing us to reference this data later for analysis without needing to re-fetch it from the API.
 
 By automating the collection and storage of this data, we streamline the process of analyzing the latest security vulnerabilities released on Patch Tuesday, facilitating quicker and more informed security responses.
 
 ```python
 # Get Microsoft security updates from MSRC API
-updates = requests.get("https://api.msrc.microsoft.com/cvrf/v3.0/updates",
-                       headers={"Accept": "application/json"}
-                       )
-latest_msrc_url = updates.json()["value"][-1]["CvrfUrl"]
+updates = requests.get(
+    "https://api.msrc.microsoft.com/cvrf/v3.0/updates",
+    headers={"Accept": "application/json"},
+)
+
+sorted_updates = sorted(
+    updates.json()["value"],
+    key=lambda x: datetime.fromisoformat(
+        x["InitialReleaseDate"].replace("Z", "+00:00")
+    ),
+)
+
+latest_msrc_url = sorted_updates[-1]["CvrfUrl"]
 
 # Get current CVRF from MSRC API
 msrc_response = requests.get(latest_msrc_url, headers={"Accept": "application/json"})
+
 msrc_json = msrc_response.json()
+
 cves = list(set([x["CVE"] for x in msrc_json["Vulnerability"]]))
 
-with open("../../data/patch_tuesday/raw/msrc.json", 'w') as file:
-    json.dump(msrc_json, file, indent=4)
+with open("../../data/raw/msrc.json", "w") as file:
+    json.dump(msrc_json, file, indent=2)
 ```
 
 ## Fetching EPSS Scores for CVEs from MSRC Updates
@@ -69,7 +81,7 @@ The steps for this process are outlined below:
 
 4. **Concatenate DataFrames**: After all chunks are processed, the individual DataFrames stored in `epss_list` are concatenated into a single DataFrame. This consolidated DataFrame, `epss`, contains all the EPSS scores for the CVEs.
 
-5. **Save Data to CSV**: The final DataFrame is saved to a CSV file in the `../../data/patch_tuesday/raw/` directory. This approach ensures that the EPSS data is easily accessible for further analysis and does not require re-fetching from the API.
+5. **Save Data to CSV**: The final DataFrame is saved to a CSV file in the `../../data/raw/` directory. This approach ensures that the EPSS data is easily accessible for further analysis and does not require re-fetching from the API.
 
 By automating the retrieval and storage of EPSS data, we enhance our ability to quickly analyze the exploitability of newly reported vulnerabilities and prioritize responses accordingly.
 
@@ -78,7 +90,7 @@ See EPSS at [https://www.first.org/epss](https://www.first.org/epss).
 ```python
 # Get latest EPSS data from First.org for MSRC CVEs
 cve_chunk = len(cves) // 3
-cve_chunks = [cves[i:i + cve_chunk] for i in range(0, len(cves), cve_chunk)]
+cve_chunks = [cves[i: i + cve_chunk] for i in range(0, len(cves), cve_chunk)]
 
 epss_list = []
 
@@ -90,7 +102,7 @@ for chunk in cve_chunks:
 epss = pd.concat(epss_list)
 
 # Save to CSV
-epss.to_csv("../../data/patch_tuesday/raw/epss.csv", index=False)
+epss.to_csv("../../data/raw/epss.csv", index=False)
 ```
 
 
@@ -106,17 +118,19 @@ The code performs the following operations:
 
 2. **Filter for MSRC CVEs**: The fetched data is then filtered to retain only those CVEs (Common Vulnerabilities and Exposures) that are relevant to our previously fetched MSRC (Microsoft Security Response Center) CVE list. This step ensures that our analysis focuses only on vulnerabilities that intersect with Microsoft's updates.
 
-3. **Save Filtered Data**: The filtered dataset is saved to a CSV file in the `../../data/patch_tuesday/raw/` directory. Storing this data locally allows us to access and analyze it more efficiently in subsequent steps without repeated downloads.
+3. **Save Filtered Data**: The filtered dataset is saved to a CSV file in the `../../data/raw/` directory. Storing this data locally allows us to access and analyze it more efficiently in subsequent steps without repeated downloads.
 
 By integrating CISA's KEV data into our analysis, we enhance our understanding of the security landscape, particularly regarding vulnerabilities that have been actively exploited in the wild. This information is crucial for prioritizing patches and mitigating risks associated with known threats.
 
 ```python
 # Get CISA KEV (Known Exploited Vulnerabilities) data
-cisa_kev = pd.read_csv("https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv")
+cisa_kev = pd.read_csv(
+    "https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv"
+)
 
 # Filter CISA KEV data for MSRC CVEs
 cisa_kev_msrc = cisa_kev[cisa_kev["cveID"].isin(cves)]
 
 # Save to CSV
-cisa_kev_msrc.to_csv("../../data/patch_tuesday/raw/cisa_kev.csv", index=False)
+cisa_kev_msrc.to_csv("../../data/raw/cisa_kev.csv", index=False)
 ```

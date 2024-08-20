@@ -3,6 +3,5 @@ jupytext
 matplotlib
 numpy
 pandas
-polars
 requests
 seaborn
