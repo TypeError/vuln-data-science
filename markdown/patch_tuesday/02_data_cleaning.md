@@ -53,12 +53,12 @@ This section of the notebook focuses on consolidating vulnerability data from mu
 
 ```python
 # Load the MSRC JSON data
-with open("../../data/raw/msrc.json", "r") as file:
+with open("../../data/patch_tuesday/raw/msrc.json", "r") as file:
     msrc_json = json.load(file)
 
 # Load CSV data for CISA KEV and EPSS
-cisa_kev_msrc = pd.read_csv("../../data/raw/cisa_kev.csv")
-epss = pd.read_csv("../../data/raw/epss.csv")
+cisa_kev_msrc = pd.read_csv("../../data/patch_tuesday/raw/cisa_kev.csv")
+epss = pd.read_csv("../../data/patch_tuesday/raw/epss.csv")
 
 msrc_kev_epss_data = []
 
@@ -161,5 +161,5 @@ msrc_epss_kev["CISA_KEV"] = msrc_epss_kev["CISA_KEV"].astype(bool)
 msrc_epss_kev["EPSS"] = msrc_epss_kev["EPSS"].astype(float)
 
 # Save to CSV
-msrc_epss_kev.to_csv("../../data/processed/msrc_epss_kev.csv", index=False)
+msrc_epss_kev.to_csv("../../data/patch_tuesday/processed/msrc_epss_kev.csv", index=False)
 ```

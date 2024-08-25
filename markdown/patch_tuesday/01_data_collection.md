@@ -16,10 +16,30 @@ jupyter:
 
 ```python
 import json
+import os
 from datetime import datetime
 
 import pandas as pd
 import requests
+```
+
+## Project Setup
+
+Before proceeding with data collection, we need to ensure that the necessary directories for storing raw and processed data are in place. This step is crucial to maintain an organized structure for our project, especially when working with multiple datasets over time.
+
+The following Python code will check if the required directories exist (`raw` and `processed` under `patch_tuesday`), and if not, it will create them. This approach ensures that the environment is always correctly set up before any data processing begins, even if you're running this notebook on a new machine or a fresh clone of the repository.
+
+
+```python
+# Directories to create
+dirs = [
+    "../../data/patch_tuesday/raw/",
+    "../../data/patch_tuesday/processed/",
+]
+
+# Create Patch Tuesday data directories if they don't exist
+for d in dirs:
+    os.makedirs(d, exist_ok=True)
 ```
 
 ## Fetching and Storing Microsoft Security Updates
@@ -63,7 +83,7 @@ msrc_json = msrc_response.json()
 
 cves = list(set([x["CVE"] for x in msrc_json["Vulnerability"]]))
 
-with open("../../data/raw/msrc.json", "w") as file:
+with open("../../data/patch_tuesday/raw/msrc.json", "w") as file:
     json.dump(msrc_json, file, indent=2)
 ```
 
@@ -102,7 +122,7 @@ for chunk in cve_chunks:
 epss = pd.concat(epss_list)
 
 # Save to CSV
-epss.to_csv("../../data/raw/epss.csv", index=False)
+epss.to_csv("../../data/patch_tuesday/raw/epss.csv", index=False)
 ```
 
 
@@ -132,5 +152,5 @@ cisa_kev = pd.read_csv(
 cisa_kev_msrc = cisa_kev[cisa_kev["cveID"].isin(cves)]
 
 # Save to CSV
-cisa_kev_msrc.to_csv("../../data/raw/cisa_kev.csv", index=False)
+cisa_kev_msrc.to_csv("../../data/patch_tuesday/raw/cisa_kev.csv", index=False)
 ```

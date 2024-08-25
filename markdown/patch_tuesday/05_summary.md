@@ -21,7 +21,7 @@ from IPython.display import Markdown, display
 
 ```python
 # Read CSV into a Pandas DataFrame
-patch_tuesday_df = pd.read_csv("../../data/processed/patch_tuesday_prioritized.csv")
+patch_tuesday_df = pd.read_csv("../../data/patch_tuesday/processed/patch_tuesday_prioritized.csv")
 
 
 # Function to display Markdown text
