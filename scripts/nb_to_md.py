@@ -1,4 +1,5 @@
 import os
+import shutil
 from pathlib import Path
 
 import jupytext
@@ -9,8 +10,15 @@ def main():
     Convert Jupyter notebooks in /notebooks to Markdown format in /markdown.
     """
 
-    notebooks_dir = "./notebooks"
-    markdown_dir = "./markdown"
+    notebooks_dir = Path("./notebooks")
+    markdown_dir = Path("./markdown")
+
+    # Remove the entire markdown directory
+    if markdown_dir.exists() and markdown_dir.is_dir():
+        shutil.rmtree(markdown_dir)
+
+    # Recreate the directory
+    markdown_dir.mkdir(parents=True, exist_ok=True)
 
     for root, _, files in os.walk(notebooks_dir):
         for file in files:
