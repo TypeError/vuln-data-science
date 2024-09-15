@@ -127,7 +127,3 @@ for impact, count in impact_dict.items():
     percentage = impact_percentage_dict[impact]
     print_md(f"- **{impact}**: {count} vulnerabilities ({percentage:.0f}%)")
 ```
-
-```python
-
-```
