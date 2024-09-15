@@ -31,9 +31,9 @@ deeper insights into vulnerabilities, predict trends, and enhance our overall se
 data, Jupyter notebooks, and analysis scripts aimed at advancing our understanding of vulnerabilities across various
 domains, including software and network vulnerabilities. We utilize data from trusted sources such as:
 
-- **CISA Known Exploited Vulnerabilities (KEV)**
-- **Exploit Prediction Scoring System (EPSS)**
-- **NIST National Vulnerability Database (NVD)**
+- [CISA Known Exploited Vulnerabilities (KEV)](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
+- [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/)
+- [NIST National Vulnerability Database (NVD)](https://nvd.nist.gov/)
 
 ## Motivation
 
@@ -204,9 +204,24 @@ We plan to expand the project with the following features:
 
 ## Acknowledgments
 
-Thanks to the cybersecurity and data science communities for their support and contributions. This project is inspired
-by efforts to improve security practices and knowledge sharing. Special thanks to:
+We would like to acknowledge the work of researchers and contributors who are advancing the field of vulnerability data
+science. Their insights and tools have been instrumental in shaping this project.
 
-- [CISA Known Exploited Vulnerabilities (KEV)](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
-- [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/)
-- [NIST National Vulnerability Database (NVD)](https://nvd.nist.gov/)
+- **[Jay Jacobs](https://www.linkedin.com/in/jayjacobs1/)**  
+  Co-founder of the Cyentia Institute, focusing on security metrics and data-driven decision-making in vulnerability
+  management and risk assessment.
+
+- **[Jerry Gamblin](https://www.linkedin.com/in/jgamblin/)** / [GitHub](https://github.com/jgamblin)  
+  Security researcher and advocate, contributing to vulnerability analysis, remediation strategies, and the development
+  of security tools.
+
+- **[Patrick Garrity](https://www.linkedin.com/in/patrickmgarrity/)**  
+  Acclaimed security researcher with deep expertise in vulnerabilities, exploitation, and threat actor analysis, focused
+  on transforming complex vulnerability data into clear, actionable visualizations.
+
+- **[Wade Baker](https://www.linkedin.com/in/drwadebaker/)**  
+  Co-founder of the Cyentia Institute and co-creator of the Verizon Data Breach Investigations Report (DBIR),
+  specializing in security data analytics and risk management.
+
+We also want to thank the broader cybersecurity and data science communities for their contributions. This project draws
+inspiration from collective efforts to improve security practices and promote knowledge sharing.
