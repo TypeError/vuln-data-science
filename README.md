@@ -33,6 +33,7 @@ domains, including software and network vulnerabilities. We utilize data from tr
 
 - [CISA Known Exploited Vulnerabilities (KEV)](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
 - [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/)
+- [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide)
 - [NIST National Vulnerability Database (NVD)](https://nvd.nist.gov/)
 
 ## Motivation
