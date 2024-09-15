@@ -109,8 +109,8 @@ See EPSS at [https://www.first.org/epss](https://www.first.org/epss).
 
 ```python
 # Get latest EPSS data from First.org for MSRC CVEs
-cve_chunk = len(cves) // 3
-cve_chunks = [cves[i: i + cve_chunk] for i in range(0, len(cves), cve_chunk)]
+cve_chunk_size = 100
+cve_chunks = [cves[i: i + cve_chunk_size] for i in range(0, len(cves), cve_chunk_size)]
 
 epss_list = []
 
