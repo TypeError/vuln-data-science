@@ -56,9 +56,14 @@ for vulnerability in nvd_json:
     cve_metrics = vulnerability['cve']['metrics']
     cve_metric = next(
         (metric for metric in cve_metrics.get('cvssMetricV40', []) if metric['source'] == 'nvd@nist.gov'),
-        next((metric for metric in cve_metrics.get('cvssMetricV31', []) if metric['source'] == 'nvd@nist.gov'), None)
+        next((metric for metric in cve_metrics.get('cvssMetricV40', [])), None)
     )
-
+    if not cve_metric:
+        cve_metric = next(
+            (metric for metric in cve_metrics.get('cvssMetricV31', []) if metric['source'] == 'nvd@nist.gov'),
+            next((metric for metric in cve_metrics.get('cvssMetricV31', [])), None)
+        )
+        
     cvss_base_score = cve_metric['cvssData']['baseScore'] if cve_metric else None
     cvss_severity = cve_metric['cvssData']['baseSeverity'] if cve_metric else None
 
