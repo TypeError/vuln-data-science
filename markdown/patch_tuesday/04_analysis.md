@@ -25,7 +25,7 @@ import seaborn as sns
 ### Procedure
 
 1. **Reading CSV Data**:
-   - The `pd.read_csv` function from the pandas library is used to read the data stored in the CSV file located at `'../../data/processed/patch_tuesday_prioritized.csv'`.
+   - The `pd.read_csv` function from the pandas library is used to read the data stored in the CSV file located at `'.../../data/patch_tuesday/processed/patch_tuesday_prioritized.csv'`.
    - This file contains the processed data that integrates MSRC updates, EPSS scores, and CISA KEV data, which was previously prepared and saved in an earlier step of the workflow.
 
 2. **DataFrame Storage**:
